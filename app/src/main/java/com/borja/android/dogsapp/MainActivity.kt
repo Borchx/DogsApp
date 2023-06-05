@@ -2,7 +2,9 @@ package com.borja.android.dogsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.borja.android.dogsapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
@@ -12,7 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnQueryTextListener {
 
     //1º Binding
     private lateinit var binding: ActivityMainBinding
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(R.layout.activity_main)
+
+        binding.svDogs.setOnQueryTextListener(this)
 
         initRecyclerView()
 
@@ -62,12 +66,29 @@ class MainActivity : AppCompatActivity() {
                 }else{
                     showError()
                 }
+                hideKeyboard()
             }
         }
     }
 
+    private fun hideKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.viewRoot.windowToken,0)
+    }
+
     private fun showError() {
         Toast.makeText(this,"ERROR",Toast.LENGTH_LONG).show()
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (!query.isNullOrEmpty()){
+            searchByName(query.lowercase())
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
     }
 
 }
