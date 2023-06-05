@@ -49,11 +49,15 @@ class MainActivity : AppCompatActivity() {
     //5º Coroutines
     private fun searchByName(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = getRetrofit().create(APIService::class.java).getDogsByBreeds(query)
+            val response = getRetrofit().create(APIService::class.java).getDogsByBreeds("$query/images")
             val puppies = response.body()
             //Volver al Hilo principial
             runOnUiThread {
                 if (response.isSuccessful){
+                    val images = puppies?.images ?: emptyList()
+                    dogsImages.clear()
+                    dogsImages.addAll(images)
+                    adapter.notifyDataSetChanged()
                     //Mostrar recyclerView
                 }else{
                     showError()
