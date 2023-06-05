@@ -3,6 +3,7 @@ package com.borja.android.dogsapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.borja.android.dogsapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     //1º Binding
     private lateinit var binding: ActivityMainBinding
+    //6º Adapter
+    private lateinit var adapter: DogAdapter
+
+    private var dogsImages = mutableListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -22,6 +27,14 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        initRecyclerView()
+
+    }
+
+    private fun initRecyclerView() {
+        adapter = DogAdapter(dogsImages)
+        binding.rvDogs.layoutManager = LinearLayoutManager(this)
+        binding.rvDogs.adapter = adapter
     }
 
     //4º Retrofit
