@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(), OnQueryTextListener {
         binding.svDogs.setOnQueryTextListener(this)
 
         initRecyclerView()
-
     }
 
     private fun initRecyclerView() {
