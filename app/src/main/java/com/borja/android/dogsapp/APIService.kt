@@ -9,6 +9,4 @@ interface APIService {
     //3 APISERVICE GET
     @GET
     suspend fun getDogsByBreeds(@Url url:String):Response<DogsResponse>
-
-    //no me muestra nada?
 }

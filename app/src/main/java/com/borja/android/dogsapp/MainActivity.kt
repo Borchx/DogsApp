@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity(), OnQueryTextListener {
                     val images = puppies?.images ?: emptyList()
                     dogsImages.clear()
                     dogsImages.addAll(images)
+                    //prueba error
                     Log.d("PERRO", "IMAGEN PERRO $images")
                     adapter.notifyDataSetChanged()
                     //Mostrar recyclerView
