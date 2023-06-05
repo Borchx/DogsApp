@@ -2,6 +2,7 @@ package com.borja.android.dogsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity(), OnQueryTextListener {
                     val images = puppies?.images ?: emptyList()
                     dogsImages.clear()
                     dogsImages.addAll(images)
+                    Log.d("PERRO", "IMAGEN PERRO $images")
                     adapter.notifyDataSetChanged()
                     //Mostrar recyclerView
                 }else{
